@@ -1,0 +1,4 @@
+.venv/
+.local-deps/
+__pycache__/
+*.pyc
