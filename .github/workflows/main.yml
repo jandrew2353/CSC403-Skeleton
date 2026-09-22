@@ -1,4 +1,3 @@
-
 name: FastAPI CI
 
 on:
@@ -24,6 +23,9 @@ jobs:
 
       - name: Check FastAPI application
         run: python -c "from main import app; print('FastAPI application loaded successfully')"
+
+      - name: Test FastAPI endpoint
+        run: python -m pytest test_main.py -v
 
       - name: Build Docker image
         run: docker build -t fastapi-skeleton .
