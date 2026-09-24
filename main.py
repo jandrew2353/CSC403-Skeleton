@@ -1,22 +1,32 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+import random
 
-#create fast api for webserver
-app = FastAPI(title="CSC 4033 Project Skeleton")
+app = FastAPI(tittle="Dice Roller yay!")
 
-# Create a GET endpoint for the root URL ("/")
-# This runs when someone visits http://localhost:8000/
-# The summary describes what this endpoint does
-@app.get("/", summary="Check that the service is running")
-# Define the function that runs when the root endpoint is accessed
-# dict[str, str] means the function returns a dictionary
-# containing string keys and string values
-def root() -> dict[str, str]:
-    return {"service": "CSC 4033 Project Skeleton", "status": "running"}
+#end point one. Checks if the server is running
+@app.get("/")
+def root():
+    return {"Service": "Dice Roller, YAY!", "status": "running, YAY!"}
 
+#end point two roll the dice
+@app.get("/roll")
+def roll(side: int):
+    #make sure that the side rolled is valid
+    if side < 2 or side > 100:
+        raise HTTPException(
+            status_code=400,
+            detail="Sides must be between 2 and 100"
+        )
 
-# to run server open terminal:
-    # python -m uvicorn main:app --reload
+    result = random.randint(1,side)
 
-# to run docker build docker build -t fastapi-skeleton .
+    return {"side": side, "result": result}
 
-# to end server crtl + c
+# python -m uvicorn main:app --reload (used to run in vscode)
+# docker build -t dice-roller . (build docker container)
+# docker run --rm -p 8000:8000 dice-roller (run docker container)
+
+# leave root alone for server status
+# to roll the dice /roll?side=(desired size)
+# for error /roll?side=1
+# to see all end points /docs

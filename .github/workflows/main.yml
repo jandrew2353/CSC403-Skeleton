@@ -1,13 +1,25 @@
-name: Test CI for skeleton
+name: Dice Roller CI
 
 on:
   push:
+  pull_request:
 
-jobs:
-  test:
+jobs: 
+  dice-roller:
     runs-on: ubuntu-latest
 
     steps:
-      # Print a message to confirm GitHub Actions is working
-      - name: Test GitHub Actions
-        run: echo "Working"
+    #get repository code
+    -name: Checkout Dice Roller
+    ueses: actions/checkout@v4
+
+    -name: Set up Python
+    ueses actions/setup-python@v5
+    with: 
+      python-version: '3.11'
+
+    -name: Install Dependencies
+    run: pip install -r requirments.txt
+
+    -name: build docker image
+    run: docker build -t dice-roller .
