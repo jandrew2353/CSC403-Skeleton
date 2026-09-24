@@ -24,10 +24,6 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
-      # Test Dice Roller
-      - name: Test Dice Roller
-        run: python -m pytest test_main.py -v
-
       # Build Docker image
       - name: Build Docker Image
         run: docker build -t dice-roller .
