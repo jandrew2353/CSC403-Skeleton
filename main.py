@@ -23,8 +23,9 @@ def roll(side: int):
     return {"side": side, "result": result}
 
 # python -m uvicorn main:app --reload (used to run in vscode)
-# docker build -t dice-roller . (build docker container)
-# docker run --rm -p 8000:8000 dice-roller (run docker container)
+# USE make build            (docker build -t dice-roller . (build docker container))
+# USE make run              (docker run --rm -p 8000:8000 dice-roller (run docker container))
+# ctrl + c to end
 
 # leave root alone for server status
 # to roll the dice /roll?side=(desired size)
