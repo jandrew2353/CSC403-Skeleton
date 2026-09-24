@@ -1,25 +1,33 @@
+
 name: Dice Roller CI
 
 on:
   push:
   pull_request:
 
-jobs: 
+jobs:
   dice-roller:
     runs-on: ubuntu-latest
 
     steps:
-    #get repository code
-    -name: Checkout Dice Roller
-    ueses: actions/checkout@v4
+      # Get repository code
+      - name: Checkout Dice Roller
+        uses: actions/checkout@v4
 
-    -name: Set up Python
-    ueses actions/setup-python@v5
-    with: 
-      python-version: '3.11'
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    -name: Install Dependencies
-    run: pip install -r requirments.txt
+      # Install dependencies
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
 
-    -name: build docker image
-    run: docker build -t dice-roller .
+      # Test Dice Roller
+      - name: Test Dice Roller
+        run: python -m pytest test_main.py -v
+
+      # Build Docker image
+      - name: Build Docker Image
+        run: docker build -t dice-roller .
